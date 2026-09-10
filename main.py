@@ -6,16 +6,25 @@ import array
 import json
 import os
 
-# Инициализация аудио и графики
-pygame.mixer.pre_init(44100, -16, 2, 512)
+# Безопасная инициализация звука для Android
+try:
+    pygame.mixer.pre_init(44100, -16, 2, 1024)
+    pygame.mixer.init()
+except Exception:
+    pass
+
 pygame.init()
+pygame.font.init()
 
 if hasattr(pygame.key, "stop_text_input"):
     pygame.key.stop_text_input()
 
+# Безопасное определение разрешения экрана на Android
 info = pygame.display.Info()
-WIDTH, HEIGHT = info.current_w, info.current_h
-screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+WIDTH = info.current_w if info.current_w > 0 else 720
+HEIGHT = info.current_h if info.current_h > 0 else 1280
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED)
 pygame.display.set_caption("SNAKEHUNT")
 clock = pygame.time.Clock()
 
