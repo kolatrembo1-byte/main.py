@@ -5,7 +5,7 @@ package.domain = org.game
 source.dir = .
 source.include_exts = py,png,jpg,json
 version = 1.0
-requirements = python3,pygame-ce
+requirements = python3==3.11.5,pygame-ce
 orientation = portrait
 fullscreen = 1
 android.archs = arm64-v8a
